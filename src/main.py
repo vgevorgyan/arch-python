@@ -12,16 +12,23 @@ config = load_config("config.toml")
 
 # TODO:  2. Check Internet access for installation
 
+print("Checking network connection ...")
 if not is_connected():
     raise SystemExit("No internet connection. Please configure your network.")
 
 # TODO:  3. Configure NTP
 
+print("Enabling NTP ...")
 run_command(["timedatectl", "set-ntp", "true"])
+print("Setting timezone ...")
 run_command(["timedatectl", "set-timezone", config["general"]["timezone"]])
 
 # TODO:  4. Partitioning
 # TODO:  5. Install base system
+
+print("Installing base system ...")
+run_command(["pacstrap", "/mnt", config["general"]["base_packages"].split(" ")])
+
 # TODO:  6. Configure new system timezone, clock, locale and hosts
 # TODO:  7. User configuration
 # TODO:  8. fstab generation
