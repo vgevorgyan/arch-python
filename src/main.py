@@ -1,7 +1,7 @@
 #!/bin/env python
 
 from .helpers.network import is_connected
-from .helpers.utils import load_config
+from .helpers.utils import load_config, run_command
 
 # TODO:  1. Validate config files
 config = load_config("config.toml")
@@ -10,12 +10,16 @@ config = load_config("config.toml")
 # TODO: Disks - partitions
 # TODO: Network - hostname, network config (IP, netmask, gateway or DHCP)
 
-# TODO:  2. Configure Internet access for installation
+# TODO:  2. Check Internet access for installation
 
 if not is_connected():
     raise SystemExit("No internet connection. Please configure your network.")
 
 # TODO:  3. Configure NTP
+
+run_command(["timedatectl", "set-ntp", "true"])
+run_command(["timedatectl", "set-timezone", config["general"]["timezone"]])
+
 # TODO:  4. Partitioning
 # TODO:  5. Install base system
 # TODO:  6. Configure new system timezone, clock, locale and hosts
