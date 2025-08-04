@@ -17,7 +17,7 @@ def load_config(file_name):
 def run_command(command, shell=False):
     result = subprocess.run(
         command,
-        capture_output=True,
+        capture_output=False,
         shell=shell,
         stdout=sys.stdout,
         text=True,
