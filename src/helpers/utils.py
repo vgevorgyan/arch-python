@@ -15,16 +15,16 @@ def load_config(file_name):
 
 
 def run_command(command, shell=False):
-    result = subprocess.run(
+    subprocess.run(
         command,
         capture_output=False,
         shell=shell,
         stdout=sys.stdout,
         text=True,
     )
-    if result.returncode != 0:
-        print(result.stderr.strip())
-    return result.stdout.strip()
+    # if result.returncode != 0:
+    #     print(result.stderr.strip())
+    # return result.stdout.strip()
 
 
 def get_cpu():
