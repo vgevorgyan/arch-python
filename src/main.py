@@ -41,10 +41,11 @@ match get_cpu():
 if is_debug:
     print(base_packages)
 
-run_command(
+output = run_command(
     "pacstrap -K /mnt " + base_packages,
     shell=True,
 )
+print(output)
 
 # TODO:  6. Configure new system timezone, clock, locale and hosts
 # TODO:  7. User configuration

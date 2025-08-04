@@ -1,7 +1,6 @@
 import random
 import string
 import subprocess
-import sys
 import tomllib
 
 from ..constants import CPU
@@ -15,16 +14,15 @@ def load_config(file_name):
 
 
 def run_command(command, shell=False):
-    subprocess.run(
+    result = subprocess.run(
         command,
-        capture_output=False,
+        capture_output=True,
         shell=shell,
-        stdout=sys.stdout,
         text=True,
     )
-    # if result.returncode != 0:
-    #     print(result.stderr.strip())
-    # return result.stdout.strip()
+    if result.returncode != 0:
+        print(result.stderr.strip())
+    return result.stdout.strip()
 
 
 def get_cpu():
