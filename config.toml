@@ -1,4 +1,5 @@
 [general]
+debug = true
 timezone = "Asia/Yerevan"
 base_packages = "base base-devel linux linux-firmware iwd dhcpcd"
 gpu = "nvidia" # "nvidia" | "amd" | "intel"
