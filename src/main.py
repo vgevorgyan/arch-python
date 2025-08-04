@@ -27,7 +27,7 @@ run_command(["timedatectl", "set-timezone", config["general"]["timezone"]])
 # TODO:  5. Install base system
 
 print("Installing base system ...")
-run_command(["pacstrap", "/mnt", config["general"]["base_packages"].split(" ")])
+run_command(["pacstrap", "/mnt"] + config["general"]["base_packages"].split(" "))
 
 # TODO:  6. Configure new system timezone, clock, locale and hosts
 # TODO:  7. User configuration
