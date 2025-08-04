@@ -1,0 +1,54 @@
+[general]
+timezone = "Asia/Yerevan"
+base_packages = "base base-devel linux linux-firmware iwd dhcpcd"
+gpu = "nvidia" # "nvidia" | "amd" | "intel"
+
+[user]
+username = "vgevorgyan"
+home = "/home/vgevorgyan"
+
+[network]
+type = "eth"
+hostname = "vgevorgyan"
+
+[network.eth]
+type = "dhcp"
+
+[disks]
+action = "update"
+
+[[disks.partitions]]
+type = "efi"
+partition = "/dev/nvme0n1p1"
+format = true
+
+[[disks.partitions]]
+type = "boot"
+partition = "/dev/nvme0n1p2"
+format = true
+
+[[disks.partitions]]
+type = "swap"
+partition = "/dev/nvme0n1p3"
+format = true
+
+[[disks.partitions]]
+name = "system"
+type = "luks-lvm"
+partition = "/dev/nvme0n1p4"
+crypt_name = "cryptlvm"
+
+[[disks.partitions.system]]
+mount = "/"
+name = "root"
+format = false
+
+[[disks.partitions.system]]
+mount = "/home"
+name = "home"
+format = false
+
+[[disks.partitions.system]]
+mount = "/home/data"
+name = "data"
+format = false
