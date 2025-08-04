@@ -20,6 +20,8 @@ def run_command(command, shell=False):
         shell=shell,
         text=True,
     )
+    if result.returncode != 0:
+        print(result.stderr.strip())
     return result.stdout.strip()
 
 
