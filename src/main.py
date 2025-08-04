@@ -28,7 +28,7 @@ run_command(["timedatectl", "set-timezone", config["general"]["timezone"]], shel
 
 print("Installing base system ...")
 output = run_command(
-    "yes | pacstrap -K /mnt" + config["general"]["base_packages"],
+    "yes | pacstrap -K /mnt " + config["general"]["base_packages"],
     shell=True,
 )
 print(output)
