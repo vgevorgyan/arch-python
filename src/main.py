@@ -21,7 +21,7 @@ if not is_connected():
 print("Enabling NTP ...")
 run_command(["timedatectl", "set-ntp", "true"])
 print("Setting timezone ...")
-run_command(["timedatectl", "set-timezone", config["general"]["timezone"]])
+run_command(["timedatectl", "set-timezone", config["general"]["timezone"]], shell=True)
 
 # TODO:  4. Partitioning
 # TODO:  5. Install base system
