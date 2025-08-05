@@ -30,7 +30,8 @@ action = "mount" # "create" | "mount"
 
 [[disks.partitions]]
 type = "swap"
-partition = "/dev/nvme0n1p3"
+partition = "/dev/vda1"
+# partition = "/dev/nvme0n1p3"
 format = true
 
 [[disks.partitions]]
