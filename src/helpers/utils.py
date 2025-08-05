@@ -26,9 +26,10 @@ def run_command_with_output(command, shell=False, show_output=True):
         shell=shell,
         text=True,
     )
-    if process.stdout != None and show_output:
+    if process.stdout != None:
         for line in process.stdout:
-            print(line, end="")
+            if show_output:
+                print(line, end="")
 
 
 def get_cpu():
