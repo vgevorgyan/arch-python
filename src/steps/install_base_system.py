@@ -5,7 +5,7 @@ from ..helpers.utils import debug, get_cpu, run_command_with_output
 
 def _should_install_lvm2():
     for partition in config["disks"]["partitions"]:
-        if "lvm2" in partition.type:
+        if "lvm2" in partition["type"]:
             return True
 
 
