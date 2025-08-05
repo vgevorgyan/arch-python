@@ -19,7 +19,7 @@ def install_base_system():
             base_packages += " amd-ucode "
 
     if _should_install_lvm2():
-        base_packages += " lvm3 "
+        base_packages += " lvm2 "
 
     debug(base_packages)
 
