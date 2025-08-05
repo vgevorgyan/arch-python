@@ -4,6 +4,7 @@ from .config import config
 from .helpers.network import is_connected
 from .helpers.utils import run_command
 from .steps.install_base_system import install_base_system
+from .steps.partitioning import partitioning
 
 # TODO:  1. Validate config files
 
@@ -25,6 +26,9 @@ print("Setting timezone ...")
 run_command(["timedatectl", "set-timezone", config["general"]["timezone"]], shell=True)
 
 # TODO:  4. Partitioning
+
+partitioning()
+
 # TODO:  5. Install base system
 
 install_base_system()

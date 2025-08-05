@@ -1,12 +1,7 @@
 from ..config import config
 from ..constants import CPU
-from ..helpers.utils import debug, get_cpu, run_command_with_output
-
-
-def _should_install_lvm2():
-    for partition in config["disks"]["partitions"]:
-        if "lvm2" in partition["type"]:
-            return True
+from ..helpers.utils import (debug, get_cpu, is_lvm2_exists,
+                             run_command_with_output)
 
 
 def install_base_system():
@@ -18,7 +13,7 @@ def install_base_system():
         case CPU.AMD:
             base_packages += " amd-ucode "
 
-    if _should_install_lvm2():
+    if is_lvm2_exists():
         base_packages += " lvm2 "
 
     debug(base_packages)
