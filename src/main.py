@@ -1,14 +1,11 @@
 #!/bin/env python
 
-from src.constants import CPU
-
+from .config import config
 from .helpers.network import is_connected
-from .helpers.utils import get_cpu, load_config, run_command
+from .helpers.utils import run_command
+from .steps.install_base_system import install_base_system
 
 # TODO:  1. Validate config files
-config = load_config("config.toml")
-
-is_debug = config["general"]["debug"]
 
 # TODO: General - timezone, base system packages, drivers, desktop, username, home folder, groups
 # TODO: Disks - partitions
@@ -30,22 +27,7 @@ run_command(["timedatectl", "set-timezone", config["general"]["timezone"]], shel
 # TODO:  4. Partitioning
 # TODO:  5. Install base system
 
-print("Installing base system ...")
-base_packages = config["general"]["base_packages"]
-match get_cpu():
-    case CPU.Intel:
-        base_packages += " intel-ucode"
-    case CPU.AMD:
-        base_packages += " amd-ucode"
-
-if is_debug:
-    print(base_packages)
-
-output = run_command(
-    "pacstrap -K /mnt " + base_packages,
-    shell=True,
-)
-print(output)
+install_base_system()
 
 # TODO:  6. Configure new system timezone, clock, locale and hosts
 # TODO:  7. User configuration

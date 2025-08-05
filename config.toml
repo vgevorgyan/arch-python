@@ -16,10 +16,10 @@ hostname = "vgevorgyan"
 type = "dhcp"
 
 [disks]
-action = "update"
+action = "mount" # "create" | "mount"
 
 [[disks.partitions]]
-type = "efi"
+type = "efi" # "efi" | "boot" | "swap" | "luks-lvm2"
 partition = "/dev/nvme0n1p1"
 format = true
 
@@ -35,7 +35,7 @@ format = true
 
 [[disks.partitions]]
 name = "system"
-type = "luks-lvm"
+type = "luks-lvm2"
 partition = "/dev/nvme0n1p4"
 crypt_name = "cryptlvm"
 

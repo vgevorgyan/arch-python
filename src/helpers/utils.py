@@ -3,6 +3,7 @@ import string
 import subprocess
 import tomllib
 
+from ..config import config
 from ..constants import CPU
 
 
@@ -25,6 +26,19 @@ def run_command(command, shell=False):
     return result.stdout.strip()
 
 
+def run_command_with_output(command, shell=False):
+    process = subprocess.Popen(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        shell=shell,
+        text=True,
+    )
+    if process.stdout != None:
+        for line in process.stdout:
+            print(line, end="")
+
+
 def get_cpu():
     cpu_vendor = run_command(["lscpu | grep Vendor"], shell=True).lower()
     if "intel" in cpu_vendor:
@@ -36,3 +50,8 @@ def get_cpu():
 def random_string(length=12):
     chars = string.ascii_letters + string.digits
     return "".join(random.choices(chars, k=length))
+
+
+def debug(message):
+    if config["general"]["debug"]:
+        print(message)
