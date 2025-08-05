@@ -43,7 +43,7 @@ crypt_name = "cryptlvm"
 [[disks.partitions.system]]
 mount = "/"
 name = "root"
-format = false
+format = true
 
 [[disks.partitions.system]]
 mount = "/home"

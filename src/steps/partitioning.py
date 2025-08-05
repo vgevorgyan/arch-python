@@ -1,4 +1,4 @@
-from src.helpers.utils import run_command_with_output
+from src.helpers.utils import run_command, run_command_with_output
 
 from ..config import config, config_disks_action, config_partition_type
 from ..constants import DiskAction, PartitionType
@@ -13,8 +13,9 @@ def __mount_efi_partition(partition):
 
 
 def __mount_swap_partition(partition):
-    run_command_with_output(["mkswap", partition["partition"]])
-    run_command_with_output(["swapon", partition["partition"]])
+    print("Creating and mounting swap partition.")
+    run_command(["mkswap", partition["partition"]])
+    run_command(["swapon", partition["partition"]])
 
 def __mount_partitions():
     for partition in config["disks"]["partitions"]:
