@@ -18,15 +18,15 @@ type = "dhcp"
 [disks]
 action = "mount" # "create" | "mount"
 
-[[disks.partitions]]
-type = "efi" # "efi" | "boot" | "swap" | "luks-lvm2"
-partition = "/dev/nvme0n1p1"
-format = true
-
-[[disks.partitions]]
-type = "boot"
-partition = "/dev/nvme0n1p2"
-format = true
+# [[disks.partitions]]
+# type = "efi" # "efi" | "boot" | "swap" | "luks-lvm2"
+# partition = "/dev/nvme0n1p1"
+# format = true
+#
+# [[disks.partitions]]
+# type = "boot"
+# partition = "/dev/nvme0n1p2"
+# format = true
 
 [[disks.partitions]]
 type = "swap"

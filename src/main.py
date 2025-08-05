@@ -31,7 +31,7 @@ partitioning()
 
 # TODO:  5. Install base system
 
-install_base_system()
+# install_base_system()
 
 # TODO:  6. Configure new system timezone, clock, locale and hosts
 # TODO:  7. User configuration
