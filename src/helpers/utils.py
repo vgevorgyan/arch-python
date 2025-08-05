@@ -1,17 +1,9 @@
 import random
 import string
 import subprocess
-import tomllib
 
 from ..config import config
 from ..constants import CPU
-
-
-def load_config(file_name):
-    with open(file_name, "rb") as f:
-        config = tomllib.load(f)
-
-    return config
 
 
 def run_command(command, shell=False):
