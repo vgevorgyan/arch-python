@@ -18,7 +18,7 @@ def run_command(command, shell=False):
     return result.stdout.strip()
 
 
-def run_command_with_output(command, shell=False):
+def run_command_with_output(command, shell=False, show_output=True):
     process = subprocess.Popen(
         command,
         stdout=subprocess.PIPE,
@@ -26,7 +26,7 @@ def run_command_with_output(command, shell=False):
         shell=shell,
         text=True,
     )
-    if process.stdout != None:
+    if process.stdout != None and show_output:
         for line in process.stdout:
             print(line, end="")
 
