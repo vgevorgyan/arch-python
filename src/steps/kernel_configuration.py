@@ -3,6 +3,7 @@ from ..helpers.utils import (
     edit_file_regexp,
     is_lvm2_exists,
     run_chroot_command,
+    run_chroot_command_with_output,
     run_command,
     run_command_with_output,
 )
@@ -19,3 +20,4 @@ def kernel_configuration():
         " filesystems ",
         packages,
     )
+    run_chroot_command_with_output(["mkinitcpio", "-P"])
