@@ -3,6 +3,7 @@
 from .config import config
 from .helpers.network import is_connected
 from .helpers.utils import run_command
+from .steps.configure_new_system import configure_new_system
 from .steps.install_base_system import install_base_system
 from .steps.partitioning import partitioning
 
@@ -27,13 +28,16 @@ run_command(["timedatectl", "set-timezone", config["general"]["timezone"]], shel
 
 # TODO:  4. Partitioning
 
-partitioning()
+# partitioning()
 
 # TODO:  5. Install base system
 
 # install_base_system()
 
 # TODO:  6. Configure new system timezone, clock, locale and hosts
+
+configure_new_system()
+
 # TODO:  7. User configuration
 # TODO:  8. fstab generation
 # TODO:  9. Kernel configuration and grub installation

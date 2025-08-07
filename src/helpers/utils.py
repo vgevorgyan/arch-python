@@ -18,6 +18,40 @@ def run_command(command, shell=False):
     return result.stdout.strip()
 
 
+def run_chroot_command(command, shell=False):
+    if isinstance(command, list):
+        command = ["arch-chroot", "/mnt"] + command
+    else:
+        command = "arch-chroot /mnt " + command
+
+    result = subprocess.run(
+        command,
+        capture_output=True,
+        shell=shell,
+        text=True,
+    )
+
+    return result.stdout.strip()
+
+
+def run_chroot_command_with_output(command, shell=False):
+    if isinstance(command, list):
+        command = ["arch-chroot", "/mnt"] + command
+    else:
+        command = "arch-chroot /mnt " + command
+
+    process = subprocess.Popen(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        shell=shell,
+        text=True,
+    )
+    if process.stdout != None:
+        for line in process.stdout:
+            print(line, end="")
+
+
 def run_command_with_output(command, shell=False, show_output=True):
     process = subprocess.Popen(
         command,

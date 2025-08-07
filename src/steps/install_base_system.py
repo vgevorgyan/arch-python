@@ -21,5 +21,5 @@ def install_base_system():
     run_command_with_output(
         "pacstrap -K /mnt " + base_packages,
         shell = True,
-        show_output= False,
+        show_output= True,
     )
