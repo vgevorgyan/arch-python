@@ -8,14 +8,14 @@ def __create_partitions():
 
 def __mount_boot_partition(partition):
     if partition["format"]:
-        response = input("Are you sure that you want to format " + partition["partition"] + "partition?").strip().lower()
+        response = input("Are you sure that you want to format " + partition["partition"] + " partition?").strip().lower()
         if (response == "y"):
             run_command_with_output(["mkfs.fat", "-F32", partition["partition"]])
     run_command_with_output(["mount", "--mkdir", partition["partition"], "/mnt/boot"])
 
 def __mount_efi_partition(partition):
     if partition["format"]:
-        response = input("Are you sure that you want to format " + partition["partition"] + "partition?").strip().lower()
+        response = input("Are you sure that you want to format " + partition["partition"] + " partition?").strip().lower()
         if (response == "y"):
             run_command_with_output(["mkfs.fat", "-F32", partition["partition"]])
     run_command_with_output(["mount", "--mkdir", partition["partition"], "/mnt/boot/efi"])
@@ -31,6 +31,7 @@ def __mount_luks_lvm2_partitions(partition):
     crypt_name = partition["crypt_name"]
     password = partition["password"]
     part = partition["partition"]
+    print("echo -n '" + password + "' | cryptsetup open" + part + " " + crypt_name)
     run_command_with_output("echo -n '" + password + "' | cryptsetup open" + part + " " + crypt_name, shell=True)
     for lvm_partition in config["disks"][name]["partitions"]:
         lvm_name = lvm_partition["name"]
@@ -38,7 +39,7 @@ def __mount_luks_lvm2_partitions(partition):
         format = lvm_partition["format"]
         lvm_device = "/dev/" + name + "/" + lvm_name
         if format:
-            response = input("Are you sure that you want to format " + lvm_device + "partition?").strip().lower()
+            response = input("Are you sure that you want to format " + lvm_device + " partition?").strip().lower()
             if (response == "y"):
                 run_command_with_output(["mkfs.ext4", lvm_device])
         run_command_with_output(["mount", "--mkdir", lvm_device, "/mnt" + mount])
