@@ -32,7 +32,7 @@ def __mount_luks_lvm2_partitions(partition):
     password = partition["password"]
     part = partition["partition"]
     run_command_with_output("echo -n '" + password + "' | cryptsetup open" + part + " " + crypt_name, shell=True)
-    for lvm_partition in config["disks"]["partitions"][name]:
+    for lvm_partition in config["disks"][name]["partitions"]:
         lvm_name = lvm_partition["name"]
         mount = lvm_partition["mount"]
         format = lvm_partition["format"]

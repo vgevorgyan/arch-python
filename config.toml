@@ -25,17 +25,17 @@ password = "TestTest"
 partition = "/dev/vda4"
 crypt_name = "cryptlvm"
 
-[[disks.partitions.system]]
+[[disks.system.partitions]]
 mount = "/"
 name = "root"
 format = true
 
-[[disks.partitions.system]]
+[[disks.system.partitions]]
 mount = "/home"
 name = "home"
 format = false
 
-[[disks.partitions.system]]
+[[disks.system.partitions]]
 mount = "/home/data"
 name = "data"
 format = false
