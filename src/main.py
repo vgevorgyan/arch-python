@@ -37,7 +37,7 @@ run_command(["timedatectl", "set-timezone", config["general"]["timezone"]], shel
 
 # TODO:  6. Configure new system timezone, clock, locale and hosts
 
-configure_new_system()
+# configure_new_system()
 
 # TODO:  7. User configuration
 
