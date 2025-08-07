@@ -31,8 +31,7 @@ def __mount_luks_lvm2_partitions(partition):
     crypt_name = partition["crypt_name"]
     password = partition["password"]
     part = partition["partition"]
-    print("echo -n '" + password + "' | cryptsetup open" + part + " " + crypt_name)
-    run_command_with_output("echo -n '" + password + "' | cryptsetup open" + part + " " + crypt_name, shell=True)
+    run_command_with_output("echo -n '" + password + "' | cryptsetup open " + part + " " + crypt_name, shell=True)
     for lvm_partition in config["disks"][name]["partitions"]:
         lvm_name = lvm_partition["name"]
         mount = lvm_partition["mount"]
