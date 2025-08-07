@@ -33,12 +33,12 @@ format = true
 [[disks.system.partitions]]
 mount = "/home"
 name = "home"
-format = false
+format = true
 
 [[disks.system.partitions]]
 mount = "/home/data"
 name = "data"
-format = false
+format = true
 
 [[disks.partitions]]
 type = "boot"
