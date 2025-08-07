@@ -41,6 +41,8 @@ def __mount_luks_lvm2_partitions(partition):
             response = input("Are you sure that you want to format " + lvm_device + " partition?").strip().lower()
             if (response == "y"):
                 run_command_with_output(["mkfs.ext4", lvm_device])
+
+        print("Mounting: " + lvm_device + " into " + "/mnt" + mount)
         run_command_with_output(["mount", "--mkdir", lvm_device, "/mnt" + mount])
 
 def __mount_partitions():
