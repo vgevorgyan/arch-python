@@ -18,7 +18,6 @@ def configure_new_system():
         ]
     )
     run_chroot_command_with_output(["hwclock", "--systohc"])
-    run_command("sed -i '/en_US.UTF-8/s/^#//g' /mnt/etc/locale.gen")
     edit_file("/mnt/etc/locale.gen", "#en_US.UTF-8", "#", "")
     run_chroot_command_with_output(["locale-gen"])
     run_command('echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf', shell=True)
