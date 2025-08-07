@@ -6,6 +6,7 @@ from .helpers.utils import run_command
 from .steps.configure_new_system import configure_new_system
 from .steps.install_base_system import install_base_system
 from .steps.partitioning import partitioning
+from .steps.user_configuration import user_configuration
 
 # TODO:  1. Validate config files
 
@@ -39,6 +40,9 @@ run_command(["timedatectl", "set-timezone", config["general"]["timezone"]], shel
 configure_new_system()
 
 # TODO:  7. User configuration
+
+user_configuration()
+
 # TODO:  8. fstab generation
 # TODO:  9. Kernel configuration and grub installation
 # TODO: 10. Drivers installation
