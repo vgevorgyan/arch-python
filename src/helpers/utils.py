@@ -37,8 +37,10 @@ def run_chroot_command(command, shell=False):
 def run_chroot_command_with_output(command, shell=False):
     if isinstance(command, list):
         command = ["arch-chroot", "/mnt"] + command
+        print("Running command: " + " ".join(command))
     else:
         command = "arch-chroot /mnt " + command
+        print("Running command: " + command)
 
     process = subprocess.Popen(
         command,
