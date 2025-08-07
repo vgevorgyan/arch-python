@@ -11,12 +11,13 @@ def user_configuration():
 
     print("Configuring user ...")
     if os.path.isdir("/mnt" + home):
-        print("Home dir exists")
+        print("Found old user home directory, backuping.")
         os.rename(
             "/mnt" + home, "/mnt" + home + "-" + datetime.now().strftime("%Y%m%d%H%M%S")
         )
-    else:
-        print("Home dir NOT exists")
 
-    # run_chroot_command(["groupadd", "-g", "1000", username])
-    # run_chroot_command(["useradd", "-m", "-g", "1000", "-u", "1000", username])
+    run_chroot_command(["groupadd", "-g", "1000", username])
+    run_chroot_command(["useradd", "-m", "-g", "1000", "-u", "1000", username])
+    run_chroot_command(["usermod", "-aG", "wheel,audio,optical,storage", username])
+    run_command("genfstab -pU /mnt >> /mnt/etc/fstab", shell=True)
+    print("+++++ Need to set passwords for root and new user.")
