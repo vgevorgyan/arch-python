@@ -18,26 +18,11 @@ type = "dhcp"
 [disks]
 action = "mount" # "create" | "mount"
 
-# [[disks.partitions]]
-# type = "efi" # "efi" | "boot" | "swap" | "luks-lvm2"
-# partition = "/dev/nvme0n1p1"
-# format = true
-#
-# [[disks.partitions]]
-# type = "boot"
-# partition = "/dev/nvme0n1p2"
-# format = true
-
-[[disks.partitions]]
-type = "swap"
-partition = "/dev/vda1"
-# partition = "/dev/nvme0n1p3"
-format = true
-
 [[disks.partitions]]
 name = "system"
 type = "luks-lvm2"
-partition = "/dev/nvme0n1p4"
+password = "TestTest"
+partition = "/dev/vda4"
 crypt_name = "cryptlvm"
 
 [[disks.partitions.system]]
@@ -54,3 +39,18 @@ format = false
 mount = "/home/data"
 name = "data"
 format = false
+
+[[disks.partitions]]
+type = "boot"
+partition = "/dev/vda2"
+format = true
+
+[[disks.partitions]]
+type = "efi" # "efi" | "boot" | "swap" | "luks-lvm2"
+partition = "/dev/vda1"
+format = true
+
+[[disks.partitions]]
+type = "swap"
+partition = "/dev/vda3"
+format = true
