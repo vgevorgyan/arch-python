@@ -22,7 +22,7 @@ def configure_new_system():
     # )
     run_chroot_command_with_output(["locale-gen"])
     run_command('echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf', shell=True)
-    run_command('echo "LANGUAGE=en_US" > /mnt/etc/locale.conf', shell=True)
+    run_command('echo "LANGUAGE=en_US" >> /mnt/etc/locale.conf', shell=True)
     run_command('echo "LC_ALL=C" >> /mnt/etc/locale.conf', shell=True)
     run_command('echo "' + hostname + '" > /mnt/etc/hostname', shell=True)
     run_command('echo "127.0.0.1    localhost" > /mnt/etc/hosts', shell=True)
@@ -32,6 +32,6 @@ def configure_new_system():
         + hostname
         + ".localdomain  "
         + hostname
-        + '" > /mnt/etc/hosts',
+        + '" >> /mnt/etc/hosts',
         shell=True,
     )
