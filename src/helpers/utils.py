@@ -115,3 +115,8 @@ def edit_file_regexp(file_path, find, replace, to):
 
     with open(file_path, "w") as f:
         f.writelines(lines)
+
+
+def install_packages(packages):
+    command = ["pacman", "-Sy", "--noconfirm"] + packages
+    run_chroot_command_with_output(command)

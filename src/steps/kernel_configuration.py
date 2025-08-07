@@ -1,6 +1,7 @@
 from ..config import config, config_disks_action, config_partition_type
 from ..helpers.utils import (
     edit_file_regexp,
+    install_packages,
     is_lvm2_exists,
     run_chroot_command,
     run_chroot_command_with_output,
@@ -21,3 +22,4 @@ def kernel_configuration():
         packages,
     )
     run_chroot_command_with_output(["mkinitcpio", "-P"])
+    install_packages(["grub", "efibootmgr", "dosfstools", "os-prober", "mtools"])
