@@ -15,7 +15,7 @@ def kernel_configuration():
 
     edit_file_regexp(
         "/mnt/etc/mkinitcpio.conf",
-        "HOOKS=(base",
+        r"^HOOKS=",
         " filesystems ",
         packages,
     )
