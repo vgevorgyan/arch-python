@@ -1,4 +1,5 @@
 import random
+import re
 import string
 import subprocess
 
@@ -98,6 +99,18 @@ def edit_file(file_path, find, replace, to):
 
     for i, line in enumerate(lines):
         if find in line:
+            lines[i] = line.replace(replace, to)
+
+    with open(file_path, "w") as f:
+        f.writelines(lines)
+
+
+def edit_file_regexp(file_path, find, replace, to):
+    with open(file_path, "r") as f:
+        lines = f.readlines()
+
+    for i, line in enumerate(lines):
+        if re.search(find, line):
             lines[i] = line.replace(replace, to)
 
     with open(file_path, "w") as f:

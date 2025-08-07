@@ -5,6 +5,7 @@ from .helpers.network import is_connected
 from .helpers.utils import run_command
 from .steps.configure_new_system import configure_new_system
 from .steps.install_base_system import install_base_system
+from .steps.kernel_configuration import kernel_configuration
 from .steps.partitioning import partitioning
 from .steps.user_configuration import user_configuration
 
@@ -25,7 +26,7 @@ if not is_connected():
 print("Enabling NTP ...")
 run_command(["timedatectl", "set-ntp", "true"])
 print("Setting timezone ...")
-run_command(["timedatectl", "set-timezone", config["general"]["timezone"]], shell=True)
+run_command(["timedatectl", "set-timezone", config["general"]["timezone"]])
 
 # TODO:  4. Partitioning
 
@@ -41,10 +42,16 @@ run_command(["timedatectl", "set-timezone", config["general"]["timezone"]], shel
 
 # TODO:  7. User configuration
 
-user_configuration()
+# user_configuration()
 
 # TODO:  8. fstab generation
+
+# run_command("genfstab -pU /mnt >> /mnt/etc/fstab", shell=True)
+
 # TODO:  9. Kernel configuration and grub installation
+
+kernel_configuration()
+
 # TODO: 10. Drivers installation
 # TODO: 11. Desktop environment installation and configuration
 # TODO: 12. Additional packages installation
