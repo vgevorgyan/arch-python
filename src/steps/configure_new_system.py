@@ -1,5 +1,9 @@
 from ..config import config
-from ..helpers.utils import run_chroot_command, run_chroot_command_with_output
+from ..helpers.utils import (
+    run_chroot_command,
+    run_chroot_command_with_output,
+    run_command,
+)
 
 
 def configure_new_system():
@@ -13,29 +17,21 @@ def configure_new_system():
         ]
     )
     run_chroot_command_with_output(["hwclock", "--systohc"])
-    run_chroot_command_with_output(
-        ["sed", "-i", "'/en_US.UTF-8/s/^#//g'", "/etc/locale.gen"]
-    )
+    # run_chroot_command_with_output(
+    #     ["sed", "-i", "'/en_US.UTF-8/s/^#//g'", "/etc/locale.gen"]
+    # )
     run_chroot_command_with_output(["locale-gen"])
-    run_chroot_command_with_output(
-        'echo "LANG=en_US.UTF-8" > /etc/locale.conf', shell=True
-    )
-    run_chroot_command_with_output(
-        'echo "LANGUAGE=en_US" > /etc/locale.conf', shell=True
-    )
-    run_chroot_command_with_output('echo "LC_ALL=C" > /etc/locale.conf', shell=True)
-    run_chroot_command_with_output(
-        'echo "' + hostname + '" > /etc/hostname', shell=True
-    )
-    run_chroot_command_with_output(
-        'echo "127.0.0.1    localhost" > /etc/hosts', shell=True
-    )
-    run_chroot_command_with_output('echo "::1    localhost" > /etc/hosts', shell=True)
-    run_chroot_command_with_output(
+    run_command('echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf', shell=True)
+    run_command('echo "LANGUAGE=en_US" > /mnt/etc/locale.conf', shell=True)
+    run_command('echo "LC_ALL=C" >> /mnt/etc/locale.conf', shell=True)
+    run_command('echo "' + hostname + '" > /mnt/etc/hostname', shell=True)
+    run_command('echo "127.0.0.1    localhost" > /mnt/etc/hosts', shell=True)
+    run_command('echo "::1    localhost" >> /mnt/etc/hosts', shell=True)
+    run_command(
         'echo "127.0.1.1    '
         + hostname
         + ".localdomain  "
         + hostname
-        + '" > /etc/hosts',
+        + '" > /mnt/etc/hosts',
         shell=True,
     )
