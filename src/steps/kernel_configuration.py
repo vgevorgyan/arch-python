@@ -24,6 +24,13 @@ def kernel_configuration():
     run_chroot_command_with_output(["mkinitcpio", "-P"])
     install_packages(
         ["grub", "efibootmgr", "dosfstools", "os-prober", "mtools"])
+    run_chroot_command_with_output([
+        "grub-install",
+        "--target=x86_64-efi",
+        "--efi-directory=/boot/efi",
+        "--bootloader-id=PlagueLinux",
+        "--recheck",
+    ], shell=True)
     edit_file_regexp(
         "/mnt/etc/default/grub",
         r"^GRUB_CMDLINE_LINUX=",
