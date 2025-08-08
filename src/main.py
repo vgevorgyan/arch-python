@@ -30,23 +30,23 @@ run_command(["timedatectl", "set-timezone", config["general"]["timezone"]])
 
 # TODO:  4. Partitioning
 
-# partitioning()
+partitioning()
 
 # TODO:  5. Install base system
 
-# install_base_system()
+install_base_system()
 
 # TODO:  6. Configure new system timezone, clock, locale and hosts
 
-# configure_new_system()
+configure_new_system()
 
 # TODO:  7. User configuration
 
-# user_configuration()
+user_configuration()
 
 # TODO:  8. fstab generation
 
-# run_command("genfstab -pU /mnt >> /mnt/etc/fstab", shell=True)
+run_command("genfstab -pU /mnt >> /mnt/etc/fstab", shell=True)
 
 # TODO:  9. Kernel configuration and grub installation
 
