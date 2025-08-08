@@ -34,7 +34,7 @@ def kernel_configuration():
     edit_file_regexp(
         "/mnt/etc/default/grub",
         r"^GRUB_CMDLINE_LINUX=",
-        "GRUB_CMDLINE_LINUX=",
+        'GRUB_CMDLINE_LINUX=""',
         'GRUB_CMDLINE_LINUX="cryptdevice=/dev/vda4:cryptlvm root=/dev/system/root"',
     )
     run_chroot_command_with_output(
