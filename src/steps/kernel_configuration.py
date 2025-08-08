@@ -1,12 +1,8 @@
-from ..config import config, config_disks_action, config_partition_type
 from ..helpers.utils import (
     edit_file_regexp,
     install_packages,
     is_lvm2_exists,
-    run_chroot_command,
     run_chroot_command_with_output,
-    run_command,
-    run_command_with_output,
 )
 
 
@@ -35,7 +31,8 @@ def kernel_configuration():
         "/mnt/etc/default/grub",
         r"^GRUB_CMDLINE_LINUX=",
         'GRUB_CMDLINE_LINUX=""',
-        'GRUB_CMDLINE_LINUX="cryptdevice=/dev/vda4:cryptlvm root=/dev/system/root"',
+        'GRUB_CMDLINE_LINUX="cryptdevice=/dev/vda4:cryptlvm ' +
+        'root=/dev/system/root"',
     )
     run_chroot_command_with_output(
         ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"])
