@@ -22,11 +22,13 @@ def kernel_configuration():
         packages,
     )
     run_chroot_command_with_output(["mkinitcpio", "-P"])
-    install_packages(["grub", "efibootmgr", "dosfstools", "os-prober", "mtools"])
+    install_packages(
+        ["grub", "efibootmgr", "dosfstools", "os-prober", "mtools"])
     edit_file_regexp(
         "/mnt/etc/default/grub",
         r"^GRUB_CMDLINE_LINUX=",
         "GRUB_CMDLINE_LINUX=",
         'GRUB_CMDLINE_LINUX="cryptdevice=/dev/vda4:cryptlvm root=/dev/system/root"',
     )
-    run_chroot_command_with_output(["grub-mkconfig", "-o", "/boot/grub/grub.cfg"])
+    run_chroot_command_with_output(
+        ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"])
