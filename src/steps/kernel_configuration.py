@@ -30,7 +30,7 @@ def kernel_configuration():
         "--efi-directory=/boot/efi",
         "--bootloader-id=PlagueLinux",
         "--recheck",
-    ], shell=True)
+    ])
     edit_file_regexp(
         "/mnt/etc/default/grub",
         r"^GRUB_CMDLINE_LINUX=",
