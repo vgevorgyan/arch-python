@@ -9,6 +9,7 @@ from .constants import (
 )
 from .helpers.utils import (
     install_packages_new_system,
+    run_command,
     run_command_with_output,
 )
 
@@ -28,9 +29,7 @@ print("+++++++ Installing paru ...")
 run_command_with_output(
     ["sudo", "pacman", "-S", "--noconfirm", "--needed", "base-devel"]
 )
-run_command_with_output(
-    "cd /tmp && git clone https://aur.archlinux.org/paru.git", shell=True
-)
+run_command("cd /tmp && git clone https://aur.archlinux.org/paru.git", shell=True)
 run_command_with_output("cd /tmp/paru && makepkg -si", shell=True)
 
 print("+++++++ Enabling PipeWire services ...")
@@ -50,15 +49,18 @@ print("+++++++ Enabling SDDM service ...")
 run_command_with_output(
     ["sudo", "paru", "-Sy", "--noconfirm", "sddm-theme-sugar-candy-git"]
 )
-run_command_with_output('sudo echo "[General]" > /etc/sddm.conf', shell=True)
+run_command_with_output('echo "[General]" | sudo tee /etc/sddm.conf', shell=True)
 run_command_with_output(
-    'sudo echo "DisplayServer=wayland" >> /etc/sddm.conf', shell=True
+    'echo "DisplayServer=wayland" | sudo tee -a /etc/sddm.conf', shell=True
 )
-run_command_with_output('sudo echo "" >> /etc/sddm.conf', shell=True)
-run_command_with_output('sudo echo "[Theme]" >> /etc/sddm.conf', shell=True)
-run_command_with_output('sudo echo "Current=sugar-candy" >> /etc/sddm.conf', shell=True)
+run_command_with_output('echo "" | sudo tee -a /etc/sddm.conf', shell=True)
+run_command_with_output('echo "[Theme]" | sudo tee -a /etc/sddm.conf', shell=True)
+run_command_with_output(
+    'echo "Current=sugar-candy" | sudo tee -a /etc/sddm.conf', shell=True
+)
 run_command_with_output(
     [
+        "sudo",
         "systemctl",
         "enable",
         "sddm",
