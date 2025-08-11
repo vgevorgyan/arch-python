@@ -65,7 +65,17 @@ HYPRLAND_OPTIONAL_PACKAGES = [
     "paru",
 ]
 
-ADDITIONAL_PACKAGES = ["fish", "starship", "fzf", "zoxide", "eza", "bat", "fd"]
+ADDITIONAL_PACKAGES = [
+    "fish",
+    "starship",
+    "fzf",
+    "zoxide",
+    "eza",
+    "bat",
+    "fd",
+    "neovim",
+    "git",
+]
 
 PIPEWIRE_PACKAGES = [
     "pipewire",
