@@ -34,3 +34,4 @@ def configure_new_system():
         + '" >> /mnt/etc/hosts',
         shell=True,
     )
+    run_chroot_command_with_output(["systemctl", "enable", "dhcpcd"])

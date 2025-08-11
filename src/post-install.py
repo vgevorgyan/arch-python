@@ -12,10 +12,10 @@ from .helpers.utils import (
     run_command_with_output,
 )
 
-print("Updating system ...")
+print("+++++++ Updating system ...")
 run_command_with_output(["sudo", "pacman", "-Syu", "--noconfirm"])
 
-print("Installing core packages ...")
+print("+++++++ Installing core packages ...")
 install_packages_new_system(
     NVIDIA_OPEN_DRIVER
     + HYPRLAND_PACKAGES
@@ -24,7 +24,7 @@ install_packages_new_system(
     + ADDITIONAL_PACKAGES
 )
 
-print("Enabling PipeWire services ...")
+print("+++++++ Enabling PipeWire services ...")
 run_command_with_output(
     [
         "systemctl",
@@ -37,7 +37,7 @@ run_command_with_output(
     ]
 )
 
-print("Enabling SDDM service ...")
+print("+++++++ Enabling SDDM service ...")
 run_command_with_output(
     ["sudo", "paru", "-Sy", "--noconfirm", "sddm-theme-sugar-candy-git"]
 )
@@ -56,7 +56,7 @@ run_command_with_output(
     ]
 )
 
-print("Setting NVIDIA env vars")
+print("+++++++ Setting NVIDIA env vars")
 run_command_with_output(
     'echo "WLR_NO_HARDWARE_CURSORS=1" > ~/.config/environment.d/envvars.conf',
     shell=True,
@@ -78,7 +78,7 @@ run_command_with_output(
     shell=True,
 )
 
-print("Setting up UWSM ...")
+print("+++++++ Setting up UWSM ...")
 run_command_with_output(
     'sudo echo "[Desktop Entry]" > /usr/share/wayland-sessions/hyprland-uwsm.desktop',
     shell=True,
