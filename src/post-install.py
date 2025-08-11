@@ -27,7 +27,20 @@ install_packages_new_system(
 
 print("+++++++ Installing paru ...")
 run_command_with_output(
-    ["sudo", "pacman", "-S", "--noconfirm", "--needed", "base-devel"]
+    [
+        "sudo",
+        "pacman",
+        "-S",
+        "--noconfirm",
+        "--needed",
+        "base-devel",
+        "rust",
+        "clang",
+        "pkgconf",
+        "cmake",
+        "openssl",
+        "zlib",
+    ]
 )
 run_command("cd /tmp && git clone https://aur.archlinux.org/paru.git", shell=True)
 run_command_with_output("cd /tmp/paru && makepkg -si", shell=True)
