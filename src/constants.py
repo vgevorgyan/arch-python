@@ -74,7 +74,6 @@ ADDITIONAL_PACKAGES = [
     "bat",
     "fd",
     "neovim",
-    "git",
 ]
 
 PIPEWIRE_PACKAGES = [

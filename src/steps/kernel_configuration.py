@@ -18,7 +18,7 @@ def kernel_configuration():
         packages,
     )
     run_chroot_command_with_output(["mkinitcpio", "-P"])
-    install_packages(["grub", "efibootmgr", "dosfstools", "os-prober", "mtools"])
+    install_packages(["grub", "efibootmgr", "dosfstools", "os-prober", "mtools", "git"])
     run_chroot_command_with_output(
         [
             "grub-install",
