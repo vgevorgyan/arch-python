@@ -61,7 +61,6 @@ HYPRLAND_OPTIONAL_PACKAGES = [
     "gvfs-smb",
     "sushi",
     "file-roller",
-    "paru",
 ]
 
 ADDITIONAL_PACKAGES = [
