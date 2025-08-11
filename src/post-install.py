@@ -24,6 +24,16 @@ install_packages_new_system(
     + ADDITIONAL_PACKAGES
 )
 
+print("+++++++ Installing paru ...")
+run_command_with_output(
+    ["sudo", "pacman", "-S", "--noconfirm", "--needed", "base-devel"]
+)
+run_command_with_output(
+    ["cd", "/tmp", "&&", "git", "clone", "https://aur.archlinux.org/paru.git"]
+)
+run_command_with_output(["cd", "paru"])
+run_command_with_output(["makepkg", "-si"])
+
 print("+++++++ Enabling PipeWire services ...")
 run_command_with_output(
     [
