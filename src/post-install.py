@@ -92,23 +92,23 @@ run_command_with_output(
 
 print("+++++++ Setting up UWSM ...")
 run_command_with_output(
-    'sudo echo "[Desktop Entry]" > /usr/share/wayland-sessions/hyprland-uwsm.desktop',
+    'echo "[Desktop Entry]" | sudo tee /usr/share/wayland-sessions/hyprland-uwsm.desktop',
     shell=True,
 )
 run_command_with_output(
-    'sudo echo "Name=Hyprland (UWSM)" >> /usr/share/wayland-sessions/hyprland-uwsm.desktop',
+    'echo "Name=Hyprland (UWSM)" | sudo tee -a /usr/share/wayland-sessions/hyprland-uwsm.desktop',
     shell=True,
 )
 run_command_with_output(
-    'sudo echo "Comment=Hyprland via Universal Wayland Session Manager" >> /usr/share/wayland-sessions/hyprland-uwsm.desktop',
+    'echo "Comment=Hyprland via Universal Wayland Session Manager" | sudo tee -a /usr/share/wayland-sessions/hyprland-uwsm.desktop',
     shell=True,
 )
 run_command_with_output(
-    'sudo echo "Exec=uwsm start Hyprland" >> /usr/share/wayland-sessions/hyprland-uwsm.desktop',
+    'echo "Exec=uwsm start Hyprland" | sudo tee -a /usr/share/wayland-sessions/hyprland-uwsm.desktop',
     shell=True,
 )
 run_command_with_output(
-    'sudo echo "Type=Application" >> /usr/share/wayland-sessions/hyprland-uwsm.desktop',
+    'echo "Type=Application" | sudo tee -a /usr/share/wayland-sessions/hyprland-uwsm.desktop',
     shell=True,
 )
 
