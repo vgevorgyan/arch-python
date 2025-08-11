@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 from ..config import config
-from ..helpers.utils import run_chroot_command, run_command
+from ..helpers.utils import run_chroot_command
 
 
 def user_configuration():
@@ -18,8 +18,7 @@ def user_configuration():
 
     run_chroot_command(["groupadd", "-g", "1000", username])
     run_chroot_command(["useradd", "-m", "-g", "1000", "-u", "1000", username])
-    run_chroot_command(
-        ["usermod", "-aG", "wheel,audio,optical,storage", username])
+    run_chroot_command(["usermod", "-aG", "wheel,audio,optical,storage", username])
     print("+++++ Need to set passwords for root and new user.")
     print("+++++ arch-chroot /mnt")
     print("+++++ passwd")

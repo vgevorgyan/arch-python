@@ -2,7 +2,6 @@
 debug = true
 timezone = "Asia/Yerevan"
 base_packages = "base base-devel linux linux-firmware iwd dhcpcd"
-gpu = "nvidia" # "nvidia" | "amd" | "intel"
 
 [user]
 username = "vgevorgyan"
@@ -16,7 +15,7 @@ hostname = "vgevorgyan"
 type = "dhcp"
 
 [disks]
-action = "mount" # "create" | "mount"
+action = "mount"
 
 [[disks.partitions]]
 name = "system"
@@ -46,7 +45,7 @@ partition = "/dev/vda2"
 format = true
 
 [[disks.partitions]]
-type = "efi" # "efi" | "boot" | "swap" | "luks-lvm2"
+type = "efi"
 partition = "/dev/vda1"
 format = true
 

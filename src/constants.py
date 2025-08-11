@@ -16,3 +16,62 @@ class PartitionType:
     Boot = 2
     Swap = 3
     LuksLvm2 = 4
+
+
+NVIDIA_OPEN_DRIVER = [
+    "linux-headers",
+    "nvidia-open-dkms",
+    "nvidia-utils",
+    "egl-wayland",
+    "nvidia-settings",
+]
+
+HYPRLAND_PACKAGES = [
+    "hyprland",
+    "hyprpaper",
+    "hyprlock",
+    "xdk-desktop-portal-hyprland",
+    "xorg-wayland",
+    "wlroots",
+    "polkit",
+    "wayland",
+    "wayland-protocols",
+    "mako",
+    "waybar",
+    "wofi",
+    "wl-clipboard",
+    "grim",
+    "slurp",
+    "brightnessctl",
+    "power-profiles-daemon",
+    "kitty",
+    "sddm",
+    "uwsm",
+]
+
+HYPRLAND_OPTIONAL_PACKAGES = [
+    "xdg-desktop-portal",
+    "xdg-desktop-portal-gtk",
+    "ttf-jetbrains-mono-nerd",
+    "noto-fonts",
+    "noto-fonts-emoji",
+    "nautilus",
+    "gvfs",
+    "gvfs-mtp",
+    "gvfs-afc",
+    "gvfs-smb",
+    "sushi",
+    "file-roller",
+    "paru",
+]
+
+ADDITIONAL_PACKAGES = ["fish", "starship", "fzf", "zoxide", "eza", "bat", "fd"]
+
+PIPEWIRE_PACKAGES = [
+    "pipewire",
+    "pipewire-pulse",
+    "wireplumber",
+    "pipewire-jack",
+    "pamixer",
+    "pavucontrol",
+]

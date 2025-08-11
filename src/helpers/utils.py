@@ -50,7 +50,7 @@ def run_chroot_command_with_output(command, shell=False):
         shell=shell,
         text=True,
     )
-    if process.stdout != None:
+    if process.stdout is not None:
         for line in process.stdout:
             print(line, end="")
 
@@ -63,7 +63,7 @@ def run_command_with_output(command, shell=False, show_output=True):
         shell=shell,
         text=True,
     )
-    if process.stdout != None:
+    if process.stdout is not None:
         for line in process.stdout:
             if show_output:
                 print(line, end="")
@@ -120,3 +120,8 @@ def edit_file_regexp(file_path, find, replace, to):
 def install_packages(packages):
     command = ["pacman", "-Sy", "--noconfirm"] + packages
     run_chroot_command_with_output(command)
+
+
+def install_packages_new_system(packages):
+    command = ["pacman", "-Sy", "--noconfirm"] + packages
+    run_command_with_output(command)

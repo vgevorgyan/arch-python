@@ -2,7 +2,7 @@
 
 from .config import config
 from .helpers.network import is_connected
-from .helpers.utils import run_command
+from .helpers.utils import edit_file, install_packages, run_command
 from .steps.configure_new_system import configure_new_system
 from .steps.install_base_system import install_base_system
 from .steps.kernel_configuration import kernel_configuration
@@ -11,7 +11,8 @@ from .steps.user_configuration import user_configuration
 
 # TODO:  1. Validate config files
 
-# TODO: General - timezone, base system packages, drivers, desktop, username, home folder, groups
+# TODO: General - timezone, base system packages, drivers, desktop, username,
+# home folder, groups
 # TODO: Disks - partitions
 # TODO: Network - hostname, network config (IP, netmask, gateway or DHCP)
 
@@ -52,6 +53,12 @@ run_command("genfstab -pU /mnt >> /mnt/etc/fstab", shell=True)
 
 kernel_configuration()
 
-# TODO: 10. Drivers installation
-# TODO: 11. Desktop environment installation and configuration
-# TODO: 12. Additional packages installation
+# TODO: 10. Configure sudo
+
+install_packages(["sudo"])
+edit_file(
+    "/mnt/etc/sudoers",
+    "# %wheel ALL=(ALL:ALL) ALL",
+    "# %wheel ALL=(ALL:ALL) ALL",
+    "%wheel ALL=(ALL:ALL) ALL",
+)
