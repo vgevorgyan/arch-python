@@ -14,7 +14,7 @@ from .helpers.utils import (
 )
 
 print("+++++++ Updating system ...")
-run_command_with_output(["sudo", "pacman", "-Syu", "--noconfirm"])
+run_command_with_output(["sudo", "pacman", "-Syyyyu", "--noconfirm"])
 
 print("+++++++ Installing core packages ...")
 install_packages_new_system(
