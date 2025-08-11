@@ -17,8 +17,8 @@ run_command_with_output(["sudo", "pacman", "-Syu", "--noconfirm"])
 
 print("+++++++ Installing core packages ...")
 install_packages_new_system(
-    NVIDIA_OPEN_DRIVER
-    + HYPRLAND_PACKAGES
+    # NVIDIA_OPEN_DRIVER
+    HYPRLAND_PACKAGES
     + HYPRLAND_OPTIONAL_PACKAGES
     + PIPEWIRE_PACKAGES
     + ADDITIONAL_PACKAGES
