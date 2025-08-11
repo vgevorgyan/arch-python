@@ -123,5 +123,5 @@ def install_packages(packages):
 
 
 def install_packages_new_system(packages):
-    command = ["pacman", "-Sy", "--noconfirm"] + packages
+    command = ["sudo", "pacman", "-Sy", "--noconfirm"] + packages
     run_command_with_output(command)
