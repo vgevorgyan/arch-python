@@ -67,6 +67,7 @@ run_command_with_output(
 )
 
 print("+++++++ Setting NVIDIA env vars")
+run_command_with_output(["mkdir", "-p", "~/.config/environment.d/"])
 run_command_with_output(
     'echo "WLR_NO_HARDWARE_CURSORS=1" > ~/.config/environment.d/envvars.conf',
     shell=True,
