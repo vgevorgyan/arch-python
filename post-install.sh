@@ -77,7 +77,7 @@ echo "+++++++ Enabling PipeWire services ..."
 systemctl --user enable --now pipewire pipewire-pulse wireplumber
 
 echo "+++++++ Enabling and configuring SDDM service ..."
-sudo paru -Sy --noconfirm sddm-theme-sugar-candy-git
+paru -Sy --noconfirm sddm-theme-sugar-candy-git
 echo "[General]" | sudo tee /etc/sddm.conf
 echo "DisplayServer=wayland" | sudo tee -a /etc/sddm.conf
 echo "[Theme]" | sudo tee -a /etc/sddm.conf
