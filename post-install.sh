@@ -101,7 +101,7 @@ else
 fi
 
 echo "+++++++ Setting up UWSM ..."
-sudo cat <<'EOF' >/usr/share/wayland-sessions/hyprland-uwsm.desktop
+sudo tee /usr/share/wayland-sessions/hyprland-uwsm.desktop >/dev/null <<'EOF'
 [Desktop Entry]
 Name=Hyprland (UWSM)
 Comment=Hyprland via Universal Wayland Session Manager
