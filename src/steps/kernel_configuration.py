@@ -1,3 +1,4 @@
+from src.helpers.disk import get_luks_partition
 from ..helpers.utils import (
     edit_file_regexp,
     install_packages,
@@ -28,11 +29,17 @@ def kernel_configuration():
             "--recheck",
         ]
     )
+    luks_partition = get_luks_partition()
+    if luks_partition is None:
+        raise SystemExit("No luks partition")
+
     edit_file_regexp(
         "/mnt/etc/default/grub",
         r"^GRUB_CMDLINE_LINUX=",
         'GRUB_CMDLINE_LINUX=""',
-        'GRUB_CMDLINE_LINUX="cryptdevice=/dev/vda4:cryptlvm '
+        'GRUB_CMDLINE_LINUX="cryptdevice='
+        + luks_partition
+        + ":cryptlvm "
         + 'root=/dev/system/root"',
     )
     run_chroot_command_with_output(["grub-mkconfig", "-o", "/boot/grub/grub.cfg"])

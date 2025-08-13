@@ -18,8 +18,8 @@ run_command_with_output(["sudo", "pacman", "-Syyyyu", "--noconfirm"])
 
 print("+++++++ Installing core packages ...")
 install_packages_new_system(
-    NVIDIA_OPEN_DRIVER
-    + HYPRLAND_PACKAGES
+    # NVIDIA_OPEN_DRIVER
+    HYPRLAND_PACKAGES
     + HYPRLAND_OPTIONAL_PACKAGES
     + PIPEWIRE_PACKAGES
     + ADDITIONAL_PACKAGES
@@ -34,16 +34,12 @@ run_command_with_output(
         "--noconfirm",
         "--needed",
         "base-devel",
-        "rust",
-        "clang",
-        "pkgconf",
-        "cmake",
         "openssl",
         "zlib",
     ]
 )
-run_command("cd /tmp && git clone https://aur.archlinux.org/paru.git", shell=True)
-run_command_with_output("cd /tmp/paru && makepkg -si", shell=True)
+run_command("cd /tmp && git clone https://aur.archlinux.org/paru-bin.git", shell=True)
+run_command_with_output("cd /tmp/paru-bin && makepkg -si", shell=True)
 
 print("+++++++ Enabling PipeWire services ...")
 run_command_with_output(
@@ -69,7 +65,7 @@ run_command_with_output(
 run_command_with_output('echo "" | sudo tee -a /etc/sddm.conf', shell=True)
 run_command_with_output('echo "[Theme]" | sudo tee -a /etc/sddm.conf', shell=True)
 run_command_with_output(
-    'echo "Current=sugar-candy" | sudo tee -a /etc/sddm.conf', shell=True
+    'echo "Current=Sugar-Candy" | sudo tee -a /etc/sddm.conf', shell=True
 )
 run_command_with_output(
     [
