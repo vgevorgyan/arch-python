@@ -50,7 +50,7 @@ def __mount_swap_partition(partition):
 def __mount_luks_lvm2_partitions(partition):
     name = partition["name"]
     crypt_name = partition["crypt_name"]
-    password = partition["password"]
+    password = input("Enter LUKS partition password")
     part = partition["partition"]
     run_command_with_output(
         "echo -n '" + password + "' | cryptsetup open " + part + " " + crypt_name,
