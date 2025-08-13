@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# set -euo pipefail
 
 USE_LAST_UWSM=0
 UWSM_LINK="https://archive.archlinux.org/packages/u/uwsm/uwsm-0.23.0-1-any.pkg.tar.zst"

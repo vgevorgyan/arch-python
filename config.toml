@@ -20,7 +20,6 @@ action = "mount"
 [[disks.partitions]]
 name = "system"
 type = "luks-lvm2"
-password = "TestTest"
 partition = "/dev/vda4"
 crypt_name = "cryptlvm"
 
