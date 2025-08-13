@@ -97,7 +97,7 @@ EOF
 if ((USE_LAST_UWSM)); then
   sudo pacman -S --noconfirm uwsm
 else
-  $(sudo pacman -U --noconfirm $UWSM_LINK)
+  sudo pacman -U --noconfirm $UWSM_LINK
 fi
 
 echo "+++++++ Setting up UWSM ..."
