@@ -125,6 +125,6 @@ run_command_with_output(
     shell=True,
 )
 
-run_command_with_output(["chsh", "-s", "/usr/bin/fish"])
+run_command_with_output("chsh -s /usr/bin/fish", shell=True)
 
 print("The new system mainly installed and configured. Please reboot.")
