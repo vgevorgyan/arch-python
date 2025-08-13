@@ -1,6 +1,7 @@
 from ..config import config, config_disks_action, config_partition_type
 from ..constants import DiskAction, PartitionType
 from ..helpers.utils import run_command, run_command_with_output
+import getpass
 
 
 def __create_partitions():
@@ -50,7 +51,7 @@ def __mount_swap_partition(partition):
 def __mount_luks_lvm2_partitions(partition):
     name = partition["name"]
     crypt_name = partition["crypt_name"]
-    password = input("Enter LUKS partition password")
+    password = getpass.getpass("Enter LUKS partition password: ")
     part = partition["partition"]
     run_command_with_output(
         "echo -n '" + password + "' | cryptsetup open " + part + " " + crypt_name,
