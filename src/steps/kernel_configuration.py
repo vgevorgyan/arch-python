@@ -4,6 +4,7 @@ from ..helpers.utils import (
     install_packages,
     is_lvm2_exists,
     run_chroot_command_with_output,
+    run_command,
 )
 
 
@@ -18,8 +19,11 @@ def kernel_configuration():
         " filesystems ",
         packages,
     )
+    run_command('echo "KEYMAP=us" > /mnt/etc/vconsole.conf', shell=True)
+    run_command('echo "FONT=lat9w-16" >> /mnt/etc/vconsole.conf', shell=True)
     run_chroot_command_with_output(["mkinitcpio", "-P"])
-    install_packages(["grub", "efibootmgr", "dosfstools", "os-prober", "mtools"])
+    install_packages(
+        ["grub", "efibootmgr", "dosfstools", "os-prober", "mtools"])
     run_chroot_command_with_output(
         [
             "grub-install",
@@ -42,4 +46,5 @@ def kernel_configuration():
         + ":cryptlvm "
         + 'root=/dev/system/root"',
     )
-    run_chroot_command_with_output(["grub-mkconfig", "-o", "/boot/grub/grub.cfg"])
+    run_chroot_command_with_output(
+        ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"])

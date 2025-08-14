@@ -72,9 +72,9 @@ echo "+++++++ Installing paru ..."
 cd /tmp && git clone https://aur.archlinux.org/paru-bin.git
 cd /tmp/paru-bin && makepkg -si --noconfirm
 
-cd
-echo "+++++++ Enabling PipeWire services ..."
-systemctl --user enable --now pipewire pipewire-pulse wireplumber
+# cd
+# echo "+++++++ Enabling PipeWire services ..."
+# systemctl --user enable --now pipewire pipewire-pulse wireplumber
 
 echo "+++++++ Enabling and configuring SDDM service ..."
 paru -Sy --noconfirm sddm-theme-sugar-candy-git
