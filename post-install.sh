@@ -49,6 +49,7 @@ ADDITIONAL_PACKAGES=(
   "bat"
   "fd"
   "neovim"
+  "reflector"
 )
 
 PIPEWIRE_PACKAGES=(
@@ -82,6 +83,16 @@ echo "DisplayServer=wayland" | sudo tee -a /etc/sddm.conf
 echo "[Theme]" | sudo tee -a /etc/sddm.conf
 echo "Current=Sugar-Candy" | sudo tee -a /etc/sddm.conf
 sudo systemctl enable sddm
+
+echo "+++++++ Configure and enable reflector"
+sudo tee /etc/xdg/reflector/reflector.conf >/dev/null <<'EOF'
+--country Armenia,Russia,Georgia
+--age 12
+--protocol https
+--sort rate
+--save /etc/pacman.d/mirrorlist
+EOF
+sudo systemctl enable --now reflector.timer
 
 echo "+++++++ Setting NVIDIA env vars"
 mkdir -p ~/.config/environment.d/
