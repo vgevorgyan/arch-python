@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-USE_LAST_UWSM=0
+USE_LAST_UWSM=1
 UWSM_LINK="https://archive.archlinux.org/packages/u/uwsm/uwsm-0.23.0-1-any.pkg.tar.zst"
 NVIDIA_OPEN_DRIVER=("linux-headers" "nvidia-open-dkms" "nvidia-utils" "egl-wayland" "nvidia-settings")
 
