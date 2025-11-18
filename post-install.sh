@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-USE_LAST_UWSM=1
-UWSM_LINK="https://archive.archlinux.org/packages/u/uwsm/uwsm-0.23.0-1-any.pkg.tar.zst"
 NVIDIA_OPEN_DRIVER=("linux-headers" "nvidia-open-dkms" "nvidia-utils" "egl-wayland" "nvidia-settings")
 
 HYPRLAND_PACKAGES=(
@@ -68,16 +66,20 @@ sudo pacman -Syyyyu --noconfirm
 echo "+++++++ Installing core packages ..."
 sudo pacman -S --needed --noconfirm -- "${ALL_PACKAGES[@]}"
 
-echo "+++++++ Installing paru ..."
-cd /tmp && git clone https://aur.archlinux.org/paru-bin.git
-cd /tmp/paru-bin && makepkg -si --noconfirm
+echo "+++++++ Configuring local pacman repository ..."
+sudo tee -a /etc/pacman.conf >/dev/null <<'EOF'
+
+[myrepo]
+SigLevel = Optional TrustAll
+Server = file:///home/data/repo
+EOF
 
 echo "+++++++ Enabling and configuring SDDM service ..."
-paru -Sy --noconfirm sddm-theme-sugar-candy-git
+sudo pacman -Sy --needed --noconfirm sddm-eucalyptus-drop
 echo "[General]" | sudo tee /etc/sddm.conf
 echo "DisplayServer=wayland" | sudo tee -a /etc/sddm.conf
 echo "[Theme]" | sudo tee -a /etc/sddm.conf
-echo "Current=Sugar-Candy" | sudo tee -a /etc/sddm.conf
+echo "Current=eucalyptus-drop" | sudo tee -a /etc/sddm.conf
 sudo systemctl enable sddm
 
 echo "+++++++ Configure and enable reflector"
@@ -100,11 +102,7 @@ __GLX_VENDOR_LIBRARY_NAME=nvidia
 WLR_RENDERER=vulkan
 EOF
 
-if ((USE_LAST_UWSM)); then
-  sudo pacman -S --noconfirm uwsm
-else
-  sudo pacman -U --noconfirm $UWSM_LINK
-fi
+sudo pacman -Sy --noconfirm uwsm
 
 echo "+++++++ Setting up UWSM ..."
 sudo tee /usr/share/wayland-sessions/hyprland-uwsm.desktop >/dev/null <<'EOF'
