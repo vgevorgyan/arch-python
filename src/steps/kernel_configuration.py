@@ -9,9 +9,9 @@ from ..helpers.utils import (
 
 
 def kernel_configuration():
-    packages = " encrypt filesystems "
+    packages = " sd-encrypt plymouth filesystems "
     if is_lvm2_exists():
-        packages = " sd-encrypt lvm2 filesystems "
+        packages = " sd-encrypt lvm2 plymouth filesystems "
 
     edit_file_regexp(
         "/mnt/etc/mkinitcpio.conf",
@@ -22,9 +22,10 @@ def kernel_configuration():
     run_command('echo "KEYMAP=us" > /mnt/etc/vconsole.conf', shell=True)
     run_command('echo "FONT=lat9w-16" >> /mnt/etc/vconsole.conf', shell=True)
 
-    run_chroot_command_with_output(["mkinitcpio", "-P"])
+    run_chroot_command_with_output(["plymouth-set-default-theme", "-R", "fade-in"])
+
     install_packages(
-        ["grub", "efibootmgr", "dosfstools", "os-prober", "mtools"])
+        ["grub", "efibootmgr", "dosfstools", "mtools"])
     run_chroot_command_with_output(
         [
             "grub-install",
@@ -48,7 +49,7 @@ def kernel_configuration():
         + 'rd.luks.options='
         + luks_uuid
         + '=discard '
-        + 'root=/dev/mapper/system-root"',
+        + 'root=/dev/mapper/system-root splash"',
     )
     edit_file_regexp(
         "/mnt/etc/default/grub",
