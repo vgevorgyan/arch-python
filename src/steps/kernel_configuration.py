@@ -22,6 +22,8 @@ def kernel_configuration():
     run_command('echo "KEYMAP=us" > /mnt/etc/vconsole.conf', shell=True)
     run_command('echo "FONT=lat9w-16" >> /mnt/etc/vconsole.conf', shell=True)
 
+    run_chroot_command_with_output(["mkinitcpio", "-P"])
+
     run_chroot_command_with_output(["plymouth-set-default-theme", "-R", "fade-in"])
 
     install_packages(
