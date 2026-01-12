@@ -1,4 +1,4 @@
-from src.helpers.disk import get_luks_partition
+from ..helpers.disk import get_luks_partition
 from ..helpers.utils import (
     edit_file_regexp,
     install_packages,
