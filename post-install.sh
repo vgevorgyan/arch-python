@@ -148,7 +148,7 @@ install_packages() {
   if [[ ${#packages[@]} -eq 0 ]]; then
     return 0
   fi
-  
+
   info "Installing packages: ${packages[*]}"
   sudo pacman -S --needed --noconfirm "${packages[@]}" || warn "Some packages failed to install"
 }
@@ -156,10 +156,10 @@ install_packages() {
 # Main installation function
 install_all_packages() {
   info "Installing core packages ..."
-  
+
   # Always install core packages
   install_packages "${core[@]}"
-  
+
   # Conditionally install NVIDIA packages
   if has_nvidia_gpu; then
     info "NVIDIA GPU detected, installing NVIDIA drivers ..."
@@ -167,7 +167,7 @@ install_all_packages() {
   else
     warn "No NVIDIA GPU detected, skipping NVIDIA drivers"
   fi
-  
+
   # Install remaining packages
   install_packages "${hyprland[@]}"
   install_packages "${hypr_utils[@]}"
@@ -187,13 +187,13 @@ install_all_packages() {
 configure_pacman_repo() {
   info "Configuring local pacman repository ..."
   backup_config "/etc/pacman.conf"
-  
+
   # Check if repo already exists
   if grep -q "\[myrepo\]" /etc/pacman.conf 2>/dev/null; then
     warn "Local repository already configured, skipping ..."
     return 0
   fi
-  
+
   sudo tee -a /etc/pacman.conf >/dev/null <<'EOF'
 
 [myrepo]
@@ -207,9 +207,9 @@ EOF
 configure_sddm() {
   info "Enabling and configuring SDDM service ..."
   install_packages sddm-eucalyptus-drop
-  
+
   backup_config "/etc/sddm.conf"
-  
+
   sudo tee /etc/sddm.conf >/dev/null <<'EOF'
 [General]
 DisplayServer=wayland
@@ -217,8 +217,8 @@ DisplayServer=wayland
 [Theme]
 Current=eucalyptus-drop
 EOF
-  
-  sudo systemctl enable --now sddm || warn "Failed to enable SDDM"
+
+  sudo systemctl enable sddm || warn "Failed to enable SDDM"
   info "SDDM configured and enabled"
 }
 
@@ -227,7 +227,7 @@ configure_reflector() {
   info "Configuring and enabling reflector ..."
   sudo mkdir -p /etc/xdg/reflector
   backup_config "/etc/xdg/reflector/reflector.conf"
-  
+
   sudo tee /etc/xdg/reflector/reflector.conf >/dev/null <<'EOF'
 --country Armenia,Russia,Georgia
 --age 12
@@ -235,7 +235,7 @@ configure_reflector() {
 --sort rate
 --save /etc/pacman.d/mirrorlist
 EOF
-  
+
   sudo systemctl enable --now reflector.timer || warn "Failed to enable reflector timer"
   info "Reflector configured and enabled"
 }
@@ -246,10 +246,10 @@ configure_nvidia_env() {
     warn "No NVIDIA GPU detected, skipping NVIDIA environment configuration"
     return 0
   fi
-  
+
   info "Setting NVIDIA environment variables ..."
   mkdir -p ~/.config/environment.d/
-  
+
   cat <<'EOF' >~/.config/environment.d/envvars.conf
 WLR_NO_HARDWARE_CURSORS=1
 LIBVA_DRIVER_NAME=nvidia
@@ -257,7 +257,7 @@ GBM_BACKEND=nvidia-drm
 __GLX_VENDOR_LIBRARY_NAME=nvidia
 WLR_RENDERER=vulkan
 EOF
-  
+
   info "NVIDIA environment variables configured"
 }
 
@@ -265,10 +265,10 @@ EOF
 configure_uwsm() {
   info "Installing and setting up UWSM ..."
   install_packages uwsm
-  
+
   sudo mkdir -p /usr/share/wayland-sessions
   backup_config "/usr/share/wayland-sessions/hyprland-uwsm.desktop"
-  
+
   sudo tee /usr/share/wayland-sessions/hyprland-uwsm.desktop >/dev/null <<'EOF'
 [Desktop Entry]
 Name=Hyprland (UWSM)
@@ -276,7 +276,7 @@ Comment=Hyprland via Universal Wayland Session Manager
 Exec=uwsm start start-hyprland
 Type=Application
 EOF
-  
+
   info "UWSM configured"
 }
 
@@ -295,9 +295,9 @@ configure_shell() {
 main() {
   info "Starting post-install configuration ..."
   info "Log file: $LOG_FILE"
-  
+
   check_sudo
-  
+
   update_system
   install_all_packages
   configure_pacman_repo
@@ -306,7 +306,7 @@ main() {
   configure_nvidia_env
   configure_uwsm
   configure_shell
-  
+
   info "Post-install configuration completed successfully!"
   info "Please reboot your system to apply all changes."
 }

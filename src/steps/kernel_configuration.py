@@ -1,4 +1,4 @@
-from ..helpers.disk import (get_luks_partition get_partition_uuid)
+from ..helpers.disk import (get_luks_partition, get_partition_uuid)
 from ..helpers.utils import (
     edit_file_regexp,
     install_packages,
