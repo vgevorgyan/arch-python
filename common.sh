@@ -31,13 +31,6 @@ warn() {
   echo -e "${YELLOW}WARN:${NC} $1"
 }
 
-# Check if running with sudo
-check_sudo() {
-  if ! sudo -n true 2>/dev/null; then
-    error "This script requires sudo privileges. Please run with sudo or ensure passwordless sudo is configured."
-  fi
-}
-
 # Backup configuration file
 backup_config() {
   local file="$1"

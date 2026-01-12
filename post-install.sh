@@ -229,7 +229,7 @@ configure_reflector() {
   backup_config "/etc/xdg/reflector/reflector.conf"
 
   sudo tee /etc/xdg/reflector/reflector.conf >/dev/null <<'EOF'
---country Armenia,Russia,Georgia
+--country Germany,Armenia,Russia,Georgia
 --age 12
 --protocol https
 --sort rate
@@ -296,11 +296,9 @@ main() {
   info "Starting post-install configuration ..."
   info "Log file: $LOG_FILE"
 
-  check_sudo
-
   update_system
   install_all_packages
-  configure_pacman_repo
+  #configure_pacman_repo
   configure_sddm
   configure_reflector
   configure_nvidia_env

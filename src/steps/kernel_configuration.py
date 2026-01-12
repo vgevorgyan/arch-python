@@ -11,7 +11,7 @@ from ..helpers.utils import (
 def kernel_configuration():
     packages = " encrypt filesystems "
     if is_lvm2_exists():
-        packages = " encrypt lvm2 filesystems "
+        packages = " sd-encrypt lvm2 filesystems "
 
     edit_file_regexp(
         "/mnt/etc/mkinitcpio.conf",
@@ -41,10 +41,13 @@ def kernel_configuration():
         "/mnt/etc/default/grub",
         r"^GRUB_CMDLINE_LINUX=",
         'GRUB_CMDLINE_LINUX=""',
-        'GRUB_CMDLINE_LINUX="cryptdevice=UUID='
+        'GRUB_CMDLINE_LINUX="rd.luks.name='
         + luks_uuid
-        + ":cryptlvm "
-        + 'root=/dev/system/root"',
+        + '=cryptlvm '
+        + 'rd.luks.options='
+        + luks_uuid
+        + '=discard '
+        + 'root=/dev/mapper/system-root"',
     )
     edit_file_regexp(
         "/mnt/etc/default/grub",
