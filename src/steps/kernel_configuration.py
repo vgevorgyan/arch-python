@@ -50,8 +50,7 @@ def kernel_configuration():
         + '=cryptlvm '
         + 'rd.luks.options='
         + luks_uuid
-        + '=discard '
-        + 'root=/dev/mapper/system-root splash"',
+        + '=discard splash"',
     )
     edit_file_regexp(
         "/mnt/etc/default/grub",
