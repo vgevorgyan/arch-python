@@ -21,6 +21,10 @@ def kernel_configuration():
     )
     run_command('echo "KEYMAP=us" > /mnt/etc/vconsole.conf', shell=True)
     run_command('echo "FONT=lat9w-16" >> /mnt/etc/vconsole.conf', shell=True)
+
+    run_command('echo "blacklist qat_6xxx" > /mnt/etc/modprobe.d/blacklist-qat.conf', shell=True)
+    run_command('echo "blacklist intel_qat" >> /mnt/etc/modprobe.d/blacklist-qat.conf', shell=True)
+
     run_chroot_command_with_output(["mkinitcpio", "-P"])
     install_packages(
         ["grub", "efibootmgr", "dosfstools", "os-prober", "mtools"])
