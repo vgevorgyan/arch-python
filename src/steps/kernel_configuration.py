@@ -1,4 +1,4 @@
-from ..helpers.disk import get_luks_partition
+from ..helpers.disk import (get_luks_partition get_partition_uuid)
 from ..helpers.utils import (
     edit_file_regexp,
     install_packages,
@@ -36,15 +36,21 @@ def kernel_configuration():
     luks_partition = get_luks_partition()
     if luks_partition is None:
         raise SystemExit("No luks partition")
-
+    luks_uuid = get_partition_uuid(luks_partition)
     edit_file_regexp(
         "/mnt/etc/default/grub",
         r"^GRUB_CMDLINE_LINUX=",
         'GRUB_CMDLINE_LINUX=""',
-        'GRUB_CMDLINE_LINUX="cryptdevice='
-        + luks_partition
+        'GRUB_CMDLINE_LINUX="cryptdevice=UUID='
+        + luks_uuid
         + ":cryptlvm "
         + 'root=/dev/system/root"',
+    )
+    edit_file_regexp(
+        "/mnt/etc/default/grub",
+        r"^#GRUB_ENABLE_CRYPTODISK=",
+        '#GRUB_ENABLE_CRYPTODISK=y',
+        'GRUB_ENABLE_CRYPTODISK=y',
     )
     run_chroot_command_with_output(
         ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"])
