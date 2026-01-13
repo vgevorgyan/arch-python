@@ -95,8 +95,9 @@ main() {
   info "Directory configuration completed successfully!"
 
   info "Creating configuration symlinks ..."
-  create_config_symlink "hypr"
-  create_config_symlink "kitty"
+  # create_config_symlink "hypr"
+  # create_config_symlink "kitty"
+  create_config_symlink "quickshell"
 }
 
 # Run main function
