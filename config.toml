@@ -20,7 +20,7 @@ action = "mount"
 [[disks.partitions]]
 name = "system"
 type = "luks-lvm2"
-partition = "/dev/vda4"
+partition = "/dev/nvme0n1p4"
 crypt_name = "cryptlvm"
 
 [[disks.system.partitions]]
@@ -31,24 +31,24 @@ format = true
 [[disks.system.partitions]]
 mount = "/home"
 name = "home"
-format = true
+format = false
 
 [[disks.system.partitions]]
 mount = "/home/data"
 name = "data"
-format = true
+format = false
 
 [[disks.partitions]]
 type = "boot"
-partition = "/dev/vda2"
+partition = "/dev/nvme0n1p2"
 format = true
 
 [[disks.partitions]]
 type = "efi"
-partition = "/dev/vda1"
+partition = "/dev/nvme0n1p1"
 format = true
 
 [[disks.partitions]]
 type = "swap"
-partition = "/dev/vda3"
+partition = "/dev/nvme0n1p3"
 format = true
