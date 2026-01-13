@@ -207,6 +207,7 @@ EOF
 configure_sddm() {
   info "Enabling and configuring SDDM service ..."
   git clone https://github.com/MarianArlt/sddm-sugar-dark /usr/share/sddm/themes/sddm-sugar-dark
+  rm -rf /usr/share/sddm/themes/sddm-sugar-dark/.git
 
   backup_config "/etc/sddm.conf"
 
