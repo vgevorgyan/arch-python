@@ -206,7 +206,7 @@ EOF
 # Configure SDDM
 configure_sddm() {
   info "Enabling and configuring SDDM service ..."
-  install_packages sddm-eucalyptus-drop
+  git clone https://github.com/MarianArlt/sddm-sugar-dark /usr/share/sddm/themes/sddm-sugar-dark
 
   backup_config "/etc/sddm.conf"
 
@@ -215,7 +215,7 @@ configure_sddm() {
 DisplayServer=wayland
 
 [Theme]
-Current=eucalyptus-drop
+Current=sddm-sugar-dark
 EOF
 
   sudo systemctl enable sddm || warn "Failed to enable SDDM"
