@@ -298,7 +298,7 @@ main() {
 
   update_system
   install_all_packages
-  #configure_pacman_repo
+  configure_pacman_repo
   configure_sddm
   configure_reflector
   configure_nvidia_env
