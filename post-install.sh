@@ -29,7 +29,6 @@ core=(
 nvidia=(
   nvidia-dkms
   nvidia-utils
-  lib32-nvidia-utils
   egl-wayland
 )
 
@@ -86,11 +85,6 @@ bluetooth=(
   bluez
   bluez-utils
   blueman
-)
-
-# 🖥️ Display manager
-display_manager=(
-  sddm
 )
 
 # 📁 File manager & storage integration
@@ -150,7 +144,7 @@ install_packages() {
   fi
 
   info "Installing packages: ${packages[*]}"
-  sudo pacman -S --needed --noconfirm "${packages[@]}" || warn "Some packages failed to install"
+  sudo pacman -Sy --needed --noconfirm "${packages[@]}" || warn "Some packages failed to install"
 }
 
 # Main installation function
@@ -175,7 +169,6 @@ install_all_packages() {
   install_packages "${audio[@]}"
   install_packages "${network[@]}"
   install_packages "${bluetooth[@]}"
-  install_packages "${display_manager[@]}"
   install_packages "${files[@]}"
   install_packages "${fonts[@]}"
   install_packages "${cli[@]}"
@@ -200,27 +193,17 @@ configure_pacman_repo() {
 SigLevel = Optional TrustAll
 Server = file:///home/data/repo
 EOF
+
   info "Local repository configured"
 }
 
-# Configure SDDM
-configure_sddm() {
-  info "Enabling and configuring SDDM service ..."
-  git clone https://github.com/MarianArlt/sddm-sugar-dark /usr/share/sddm/themes/sddm-sugar-dark
-  rm -rf /usr/share/sddm/themes/sddm-sugar-dark/.git
+# Configure login manager
+configure_login_manager() {
+  info "Enabling and configuring login manager ..."
+  install_packages lemurs
+  sudo systemctl enable lemurs
 
-  backup_config "/etc/sddm.conf"
-
-  sudo tee /etc/sddm.conf >/dev/null <<'EOF'
-[General]
-DisplayServer=wayland
-
-[Theme]
-Current=sddm-sugar-dark
-EOF
-
-  sudo systemctl enable sddm || warn "Failed to enable SDDM"
-  info "SDDM configured and enabled"
+  systemctl enable --user ssh-agent.service
 }
 
 # Configure reflector
@@ -251,12 +234,13 @@ configure_nvidia_env() {
   info "Setting NVIDIA environment variables ..."
   mkdir -p ~/.config/environment.d/
 
-  cat <<'EOF' >~/.config/environment.d/envvars.conf
+  cat <<'EOF' >~/.config/environment.d/10-hyprland-nvidia.conf
 WLR_NO_HARDWARE_CURSORS=1
 LIBVA_DRIVER_NAME=nvidia
 GBM_BACKEND=nvidia-drm
 __GLX_VENDOR_LIBRARY_NAME=nvidia
 WLR_RENDERER=vulkan
+SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 EOF
 
   info "NVIDIA environment variables configured"
@@ -268,16 +252,17 @@ configure_uwsm() {
   install_packages uwsm
 
   sudo mkdir -p /usr/share/wayland-sessions
-  backup_config "/usr/share/wayland-sessions/hyprland-uwsm.desktop"
 
   sudo tee /usr/share/wayland-sessions/hyprland-uwsm.desktop >/dev/null <<'EOF'
 [Desktop Entry]
 Name=Hyprland (UWSM)
 Comment=Hyprland via Universal Wayland Session Manager
-Exec=uwsm start start-hyprland
+Exec=uwsm start -eD Hyprland -- start-hyprland
 Type=Application
+DesktopNames=Hyprland
 EOF
 
+  sudo rm -rf /usr/share/wayland-sessions/hyprland.desktop
   info "UWSM configured"
 }
 
@@ -297,13 +282,13 @@ main() {
   info "Starting post-install configuration ..."
   info "Log file: $LOG_FILE"
 
+  configure_pacman_repo
   update_system
   install_all_packages
-  configure_pacman_repo
-  configure_sddm
   configure_reflector
   configure_nvidia_env
   configure_uwsm
+  configure_login_manager
   configure_shell
 
   info "Post-install configuration completed successfully!"
