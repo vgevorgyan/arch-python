@@ -61,6 +61,7 @@ desktop_ui=(
   grim
   slurp
   playerctl
+  ddcutil
 )
 
 # 🔊 Audio stack (PipeWire)
@@ -77,7 +78,6 @@ audio=(
 # 🌐 Networking
 network=(
   networkmanager
-  network-manager-applet
 )
 
 # 🟦 Bluetooth
@@ -290,6 +290,8 @@ main() {
   configure_uwsm
   configure_login_manager
   configure_shell
+
+  sudo systemctl enable NetworkManager.service
 
   info "Post-install configuration completed successfully!"
   info "Please reboot your system to apply all changes."
